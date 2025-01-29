@@ -1,0 +1,28 @@
+/**
+ * Global Stylesheet for Backgammon MVP
+ *
+ * This stylesheet defines the foundational layout and color scheme for the application.
+ * - Resets default padding and margin to ensure consistency across browsers.
+ * - Sets a dark theme with flex-based centering for the main body, suitable for all pages.
+ * - Applies a central text alignment to containers for uniform content presentation.
+ */
+ 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+}

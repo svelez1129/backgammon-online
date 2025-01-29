@@ -1,0 +1,76 @@
+/* Style for the grid*/
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 5px;
+    width: 80vw;
+    height: 50vh;
+    background-color: #1e1e1e;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Each point is where the backgammon pieces go, and styles made so each point is in alternating color
+ * which is appropiate with backgammon
+ */
+.point {
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Stack pieces vertically */
+    justify-content: flex-start; /* Align pieces to the top */
+    align-items: center; /* Center pieces horizontally */
+    padding: 5px; /* Add padding for spacing */
+}
+
+.point:nth-child(odd):nth-child(-n+12),
+.point:nth-child(even):nth-child(n+14) {
+    background-color: #333;
+}
+
+.point:nth-child(even):nth-child(-n+12),
+.point:nth-child(odd):nth-child(n+14) {
+    background-color: #555;
+}
+
+/* Separator in the middle(where dead backgammon pieces go)*/
+.separator {
+    width: 9px;
+    height: 47.6vh;
+    background-color: #888;
+    position: absolute;
+    left: 50%;
+    z-index: 1;
+    transform: translateX(-50%);
+}
+
+/* Backgammon board pieces */
+
+
+/* Base style for all pieces */
+.piece {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    display: block; /* Change to block for vertical stacking */
+    position: relative; /* Relative positioning for stacking */
+}
+
+/* Player 1 pieces */
+.piece.player1 {
+    background-color: #0DAE9E; 
+    border: 2px solid #108176; 
+}
+
+/* Player 2 pieces */
+.piece.player2 {
+    background-color: #C364DF; 
+    border: 2px solid #9A4CB2; 
+}
+
+

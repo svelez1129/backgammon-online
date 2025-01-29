@@ -1,0 +1,41 @@
+/*
+* Styling for where you put username button and player info
+*/
+#username-setup input, #username-setup button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+}
+
+#username-setup button {
+    background-color: #1e90ff;
+}
+
+#username-setup button:hover {
+    background-color: #0077cc;
+}
+
+#player-info {
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#player-username {
+    color: #4CAF50; /* Green color for the player */
+}
+
+#opponent-username {
+    color: #FF6347; /* Tomato reddish color for the opponent */
+}
+
+#player-info div {
+    margin: 5px;
+    padding: 10px;
+    background-color: #222;
+    border-radius: 5px;
+}

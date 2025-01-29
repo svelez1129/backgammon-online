@@ -1,0 +1,40 @@
+/**
+ * Styles for form controls (leave room, create room, join room, set username)
+ *
+ * Applies uniform padding and margin to all button 
+ * and input elements for consistent spacing.
+ */
+button, input {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+/*Button styling for buttons(leave room, create room, join room, set username)*/
+button {
+    background-color: #1e90ff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0077cc;
+}
+
+#room-controls {
+    margin-bottom: 20px;
+}
+
+
+/* display of room number */
+#room-display {
+    color: #ffffff;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+#room-number {
+    font-weight: bold;
+    color: #4CAF50; /* Light green color for visibility and emphasis */
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backgammon MVP</title>
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/controls.css">
+    <link rel="stylesheet" href="assets/css/game-board.css">
+    <link rel="stylesheet" href="assets/css/player-info.css">
+</head>
+<body>
+    <div class="container">
+        <div id="player-info">
+            <div id="player-info">
+                <div id="player-username"><span id="current-username">Awaiting Username</span></div>
+                <div id="opponent-username" style="display: none;"><span id="opponent-name"></span></div>
+            </div>            
+        </div>
+        <div id="username-setup">
+            <input type="text" id="username-input" placeholder="Enter Username">
+            <button id="set-username">Set Username</button>
+        </div>
+        <div id="room-controls" style="display: none;">
+            <button id="create-room">Create Room</button>
+            <input type="text" id="room-code" placeholder="Enter Room Code">
+            <button id="join-room">Join Room</button>
+            <button id="leave-room" style="display: none;">Leave Room</button>
+        </div>
+        <div id="room-display">Current Room Code: <span id="room-number">None</span></div>
+        <div id="game-board">
+            <!-- Backgammon board will be rendered here -->
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="assets/js/script.js" defer></script>
+</body>
+</html>
