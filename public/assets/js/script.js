@@ -10,6 +10,32 @@ const setUsernameButton = document.getElementById('set-username');
 const roomControls = document.getElementById('room-controls');
 const gameBoard = document.getElementById('game-board');
 
+
+let boardState = null;
+
+/**
+ * Creates the default board state for a new game of Backgammon.
+ * Each element in boardState is [count, playerNumber].
+ * Example: [3, 1] means there are 3 pieces of 'player1' on that point.
+ */
+function initializeBoardState() {
+    // Index 0 is unused so indexes match point numbers directly (1–24).
+    const newState = new Array(25).fill(null).map(() => [0, 0]);
+
+    // Example initial positions (Adjust to your desired layout).
+    // Format: newState[point] = [numberOfPieces, playerNumber]
+    newState[1]  = [5, 1];   // 2 pieces, player1, on point 1
+    newState[24] = [2, 2];   // 2 pieces, player2, on point 24
+    newState[12] = [2, 1];   // 5 pieces, player2, on point 12
+    newState[13] = [5, 2];   // 5 pieces, player1, on point 13
+    newState[7]  = [5, 2];   // 5 pieces, player2, on point 7
+    newState[19] = [5, 1];   // 5 pieces, player1, on point 19
+    newState[5]  = [3, 2];   // 3 pieces, player2, on point 5
+    newState[17] = [3, 1];   // 3 pieces, player1, on point 17
+
+    return newState;
+}
+
 // Check for saved username and room on page load
 window.addEventListener('load', () => {
     const savedUsername = localStorage.getItem('username');
@@ -43,7 +69,9 @@ joinRoomButton.addEventListener('click', () => {
 //when room is created store the roomID in local storage so that when page is refreshed it is not deleted
 socket.on('roomCreated', (roomId) => {
     localStorage.setItem('currentRoom', roomId);
-    alert(`Room created! Share this code: ${roomId}`);
+    // If no board exists, create it now
+    boardState = initializeBoardState();
+    renderBoard(boardState);
 });
 
 /* when room is joined set the room number, display the opponents name if they have one, and have the leave room 
@@ -58,7 +86,7 @@ socket.on('roomJoined', (roomId) => {
     document.getElementById('join-room').style.display = 'none';
     document.getElementById('room-code').style.display = 'none';
     document.getElementById('create-room').style.display = 'none';
-    renderBoard();
+    renderBoard(boardState);
 });
 
 //alert the user when the room is full
@@ -138,56 +166,32 @@ socket.on('roomLeft', () => {
     gameBoard.innerHTML = '';
 });
 
-function renderBoard() {
+//board state and making the board
+function renderBoard(currentState) {
     const gameBoard = document.getElementById('game-board');
-    gameBoard.innerHTML = '';
+    gameBoard.innerHTML = '';  // Clear previous contents
 
-    // Add the separator in the middle of the board
+    // Separator
     const separator = document.createElement('div');
     separator.className = 'separator';
     gameBoard.appendChild(separator);
 
-    // Create points and set up pieces according to Backgammon rules
-    for (let i = 1; i <= 24; i++) {
-        const point = document.createElement('div');
-        point.classList.add('point');
-        let numPieces = 0;
-        let playerClass = '';
-
-        // Assign pieces to points based on traditional setup
-        if ([12, 24].includes(i)) {
-            numPieces = 2;  // Points 1 and 24 have 2 pieces each
-            if (i==12) {
-                playerClass = 'player1';  
-            } else
-                playerClass = 'player2';
-        } else if ([1, 13].includes(i)) {
-            numPieces = 5;  // Points 1 and 24 have 2 pieces each
-            if (i==1) {
-                playerClass = 'player1';  
-            } else
-                playerClass = 'player2';
-        } else if ([7, 19].includes(i)) {
-            numPieces = 5;  // Points 1 and 24 have 2 pieces each
-            if (i==19) {
-                playerClass = 'player1';  
-            } else
-                playerClass = 'player2';
-        } else if ([5, 17].includes(i)) {
-            numPieces = 3;  // Points 1 and 24 have 2 pieces each
-            if (i==17) {
-                playerClass = 'player1';  
-            } else
-                playerClass = 'player2';
+    // Loop through points 1–24
+    for (let pointNum = 1; pointNum <= 24; pointNum++) {
+        const pointDiv = document.createElement('div');
+        pointDiv.classList.add('point');
+        
+        const [count, player] = currentState[pointNum];
+        if (count > 0) {
+            const playerClass = (player === 1) ? 'player1' : 'player2';
+            for (let i = 0; i < count; i++) {
+                const piece = document.createElement('div');
+                piece.classList.add('piece', playerClass);
+                pointDiv.appendChild(piece);
+            }
         }
 
-        // Append the appropriate number of pieces to each point
-        for (let j = 0; j < numPieces; j++) {
-            const piece = document.createElement('div');
-            piece.classList.add('piece', playerClass);
-            point.appendChild(piece);
-        }
-
-        gameBoard.appendChild(point);
+        gameBoard.appendChild(pointDiv);
     }
 }
+
